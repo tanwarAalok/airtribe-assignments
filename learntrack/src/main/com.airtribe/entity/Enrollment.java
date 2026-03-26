@@ -28,17 +28,6 @@ public class Enrollment {
         return studentId;
     }
 
-    public Date getEnrollmentDate() {
-        return enrollmentDate;
-    }
-
-    public EnrollmentStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(EnrollmentStatus status) {
-        this.status = status;
-    }
 
     @Override
     public String toString() {

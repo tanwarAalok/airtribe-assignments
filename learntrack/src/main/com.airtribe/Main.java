@@ -1,9 +1,11 @@
 
 import entity.Course;
+import entity.Instructor;
 import entity.Student;
 import exception.EntityNotFoundException;
 import service.CourseService;
 import service.EnrollmentService;
+import service.InstructorService;
 import service.StudentService;
 import java.util.*;
 
@@ -12,7 +14,8 @@ public class Main {
     public static void main(String[] args) {
 
         StudentService studentService = new StudentService();
-        CourseService courseService = new CourseService();
+        InstructorService instructorService = new InstructorService();
+        CourseService courseService = new CourseService(instructorService);
         EnrollmentService enrollmentService = new EnrollmentService(studentService, courseService);
 
         Scanner scanner = new Scanner(System.in);
@@ -99,6 +102,35 @@ public class Main {
                         enrollmentService.enrollStudent(studentId, courseId);
                         break;
 
+                    case 8: // Add Instructor
+                        System.out.print("Enter First Name: ");
+                        String instructorFirstName = scanner.nextLine();
+
+                        System.out.print("Enter Last Name: ");
+                        String instructorLastName = scanner.nextLine();
+
+                        System.out.print("Enter Email: ");
+                        String instructorEmail = scanner.nextLine();
+
+                        instructorService.addInstructor(new Instructor(instructorFirstName, instructorLastName, instructorEmail));
+                        break;
+
+                    case 9: // View all instructors
+                        System.out.println("\n--- Registered Instructors ---");
+                        instructorService.listInstructors().forEach(System.out::println);
+                        break;
+
+                    case 10: // Assign Instructor to course
+                        System.out.print("Enter Course ID:");
+                        courseId = Integer.parseInt(scanner.nextLine());
+
+                        System.out.print("Enter Instructor ID: ");
+                        int instructorId = Integer.parseInt(scanner.nextLine());
+
+                        courseService.assignInstructorToCourse(courseId, instructorId);
+                        System.out.println("Instructor assigned to course.");
+                        break;
+
                     case 0: // Exit
                         running = false;
                         System.out.println("Exiting system... Goodbye!");
@@ -128,6 +160,9 @@ public class Main {
         System.out.println("5. View All Courses");
         System.out.println("6. Deactivate Course");
         System.out.println("7. Enroll Course");
+        System.out.println("8. Add Instructor");
+        System.out.println("9. View All Instructors");
+        System.out.println("10. Assign instructor to course");
         System.out.println("0. Exit");
     }
 }

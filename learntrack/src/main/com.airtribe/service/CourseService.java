@@ -1,9 +1,11 @@
 package service;
 
 import entity.Course;
+import entity.Instructor;
 import entity.Student;
 import exception.EntityNotFoundException;
 import repository.CourseRepository;
+import repository.InstructorRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +13,11 @@ import java.util.List;
 public class CourseService {
 
     private final CourseRepository courseRepository = new  CourseRepository();
+    private final InstructorService instructorService;
+
+    public CourseService(InstructorService instructorService) {
+        this.instructorService = instructorService;
+    }
 
     public void addCourse(Course course) {
         courseRepository.save(course);
@@ -34,5 +41,12 @@ public class CourseService {
 
     public Course getCourseById(int id) throws EntityNotFoundException {
         return courseRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Course not found"));
+    }
+
+    public void assignInstructorToCourse(int courseId, int instructorId) throws EntityNotFoundException {
+        Course course = getCourseById(courseId);
+        Instructor instructor = instructorService.getInstructorById(instructorId);
+
+        course.setInstructorName(instructor.getFirstName() + " " + instructor.getLastName());
     }
 }

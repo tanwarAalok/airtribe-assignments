@@ -2,6 +2,7 @@ package service;
 
 import entity.Course;
 import entity.Enrollment;
+import entity.Instructor;
 import entity.Student;
 import exception.EntityNotFoundException;
 import repository.EnrollmentRepository;
@@ -26,6 +27,4 @@ public class EnrollmentService {
 
         student.setBatch(course.getCourseName());
     }
-
-
 }

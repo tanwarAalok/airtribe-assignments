@@ -6,11 +6,9 @@ import util.IdGenerator;
 public class Student extends Person{
 
     private String batch;
-    private boolean active;
 
     public Student(String firstName, String lastName, String email) {
         super(IdGenerator.getNextStudentId(), firstName, lastName, email);
-        this.active = true;
     }
 
     public Student(String firstName, String lastName) {
@@ -23,14 +21,6 @@ public class Student extends Person{
 
     public void setBatch(String batch) {
         this.batch = batch;
-    }
-
-    public boolean isActive() {
-        return this.active;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
     }
 
     @Override

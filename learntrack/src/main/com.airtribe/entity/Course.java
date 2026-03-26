@@ -6,6 +6,7 @@ public class Course {
 
     private final int id;
     private String courseName;
+    private String instructorName;
     private String description;
     private int durationInWeeks;
     private boolean active;
@@ -42,13 +43,22 @@ public class Course {
         this.active = active;
     }
 
+    public String getInstructorName() {
+        return instructorName;
+    }
+
+    public void setInstructorName(String instructorName) {
+        this.instructorName = instructorName;
+    }
+
     @Override
     public String toString() {
-        return String.format("ID: %d | Course Name: %-15s | Description: %-35s | Duration: %d weeks",
+        return String.format("ID: %d | Course Name: %-15s | Description: %-35s | Duration: %d weeks | Instructor: %-15s",
                 getId(),
                 getCourseName(),
                 getDescription(),
-                getDurationInWeeks()
+                getDurationInWeeks(),
+                getInstructorName()
         );
     }
 }
