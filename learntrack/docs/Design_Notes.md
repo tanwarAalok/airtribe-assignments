@@ -1,16 +1,34 @@
-### 1. Why ArrayList instead of Array?
-We used `java.util.ArrayList` in our Repositories because:
-- **Dynamic Resizing**: Unlike standard arrays, `ArrayList` grows automatically as we add more students or courses.
-- **Ease of Use**: It provides built-in methods like `removeIf`, `stream()`, and `add()`, which reduce boilerplate code.
-- **Flexibility**: It simplifies the "Deactivate" and "Search" logic through the use of Streams and Predicates.
+### 1. Why `ArrayList` Instead of Array?
+Repositories use `java.util.ArrayList` because:
+- **Dynamic Resizing**: Collections can grow as new students, courses, instructors, and enrollments are added.
+- **Ease of Use**: Built-in APIs (`add`, `removeIf`, `stream`) reduce boilerplate.
+- **Service-Friendly Access**: Search/deactivate flows stay simple when repositories return iterable collections.
 
-### 2. Static Members Usage
-Static members were used in the `util.IdGenerator` class:
-- **Fields**: `studentIdCounter`, `courseIdCounter`, and `enrollmentIdCounter` are static so their values persist across all instances of the classes.
-- **Why**: This ensures that every time a new Student or Course is created, they receive a unique, incremental ID regardless of which part of the code initializes them.
+### 2. Static Members Usage (`IdGenerator`)
+Static counters are used so IDs remain unique across the application lifecycle:
+- **Current counters**: `studentIdCounter`, `courseIdCounter`, `enrollmentIdCounter`, and instructor ID generation.
+- **Why static**: IDs continue incrementing regardless of where objects are instantiated.
+- **Trade-off**: IDs reset when the app restarts because data is in-memory.
 
-### 3. Inheritance Usage
-Inheritance is implemented with `Student` extending `Person`:
-- **What was gained**: 
-  - **Code Reusability**: Common fields like `firstName`, `lastName`, and `email` are defined once in `Person` and inherited by `Student`.
-  - **Organization**: It allows us to keep the `Student` class focused strictly on academic data (batch, active status) while the `Person` class handles general identity.
+### 3. Inheritance Model
+Inheritance is implemented through `Person` as the shared base type:
+- **`Student extends Person`**
+- **`Instructor extends Person`**
+
+Benefits:
+- **Code Reuse**: Shared identity fields (`firstName`, `lastName`, `email`) live in one place.
+- **Domain Separation**: Student-only and instructor-only behavior stays in their own entity/service classes.
+
+### 4. Instructor-to-Course Assignment Design
+Instructor assignment is handled in `CourseService.assignInstructorToCourse(courseId, instructorId)`:
+- The service validates both IDs through the relevant services/repositories.
+- On success, the course stores an instructor display name (`instructorName`).
+- This keeps assignment logic in the service layer rather than UI code.
+
+### 5. Menu Flow Rationale
+The menu keeps instructor actions separate for clarity and validation:
+- **Option 8**: Add Instructor
+- **Option 9**: View All Instructors
+- **Option 10**: Assign instructor to course
+
+This separation supports the layered flow: `Main` -> `Service` -> `Repository` -> `Entity`.
