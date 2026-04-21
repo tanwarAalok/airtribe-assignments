@@ -2,7 +2,6 @@ package com.airtribe.services;
 
 import com.airtribe.entity.Book;
 import com.airtribe.entity.Patron;
-import com.airtribe.enums.BookStatus;
 
 import java.util.*;
 
