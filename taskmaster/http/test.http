@@ -1,0 +1,18 @@
+### Health check
+GET http://localhost:8080/api/test/health
+
+### Demo users
+GET http://localhost:8080/api/test/demo-users
+
+### Demo login
+POST http://localhost:8080/api/test/login-demo
+Content-Type: application/json
+
+{
+  "email": "admin@taskmaster.io",
+  "password": "admin123"
+}
+
+### Authenticated task list
+GET http://localhost:8080/api/tasks
+Authorization: Bearer {{token}}
