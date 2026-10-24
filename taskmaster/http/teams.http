@@ -1,0 +1,17 @@
+### Create team
+POST http://localhost:8080/api/teams
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "Launch Team",
+  "description": "Execution squad for product delivery"
+}
+
+### List teams for user
+GET http://localhost:8080/api/teams
+Authorization: Bearer {{token}}
+
+### Add member to team
+POST http://localhost:8080/api/teams/1/members/2
+Authorization: Bearer {{token}}

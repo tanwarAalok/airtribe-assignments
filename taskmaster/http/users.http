@@ -1,0 +1,12 @@
+### Get current profile
+GET http://localhost:8080/api/users/me
+Authorization: Bearer {{token}}
+
+### Update current profile
+PUT http://localhost:8080/api/users/me
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "fullName": "Updated Admin"
+}

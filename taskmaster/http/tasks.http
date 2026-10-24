@@ -1,0 +1,70 @@
+### Get all tasks (with filters)
+GET http://localhost:8080/api/tasks?status=OPEN&search=Ship&sort=asc
+Authorization: Bearer {{token}}
+
+### Get my tasks
+GET http://localhost:8080/api/tasks/my
+Authorization: Bearer {{token}}
+
+### Get task by id
+GET http://localhost:8080/api/tasks/1
+Authorization: Bearer {{token}}
+
+### Create task
+POST http://localhost:8080/api/tasks
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "title": "Ship API v1",
+  "description": "Finalize auth and task APIs",
+  "dueDate": "2026-10-30",
+  "status": "OPEN",
+  "priority": "HIGH",
+  "teamId": 1,
+  "assigneeId": 2
+}
+
+### Update task
+PUT http://localhost:8080/api/tasks/1
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "title": "Ship API v1.1",
+  "status": "IN_PROGRESS",
+  "priority": "URGENT"
+}
+
+### Complete task
+PATCH http://localhost:8080/api/tasks/1/complete
+Authorization: Bearer {{token}}
+
+### Assign task
+PATCH http://localhost:8080/api/tasks/1/assign?assigneeId=2
+Authorization: Bearer {{token}}
+
+### Delete task
+DELETE http://localhost:8080/api/tasks/1
+Authorization: Bearer {{token}}
+
+### Add comment
+POST http://localhost:8080/api/tasks/1/comments
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "content": "This task is moving to production review."
+}
+
+### Upload attachment
+POST http://localhost:8080/api/tasks/1/attachments
+Authorization: Bearer {{token}}
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary
+
+------WebKitFormBoundary
+Content-Disposition: form-data; name="file"; filename="sample.txt"
+Content-Type: text/plain
+
+Hello from Taskmaster
+------WebKitFormBoundary--
